@@ -1,0 +1,22 @@
+{
+  "name": "reportes-godsplanstore",
+  "version": "1.0.0",
+  "description": "Sistema de Reportes de Ventas para GodsPlan Store",
+  "scripts": {
+    "start": "parcel public/index.html --port 8000",
+    "build": "parcel build public/index.html --dist-dir ./dist",
+    "clean": "rm -rf .parcel-cache dist"
+  },
+  "dependencies": {
+    "firebase": "^11.6.1",
+    "jspdf": "^2.5.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "buffer": "^6.0.3",
+    "parcel": "^2.11.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
+}
