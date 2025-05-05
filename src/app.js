@@ -103,4 +103,5 @@ window.onerror = (mensaje, archivo, linea, columna, error) => {
     return false;
 };
 
+// Exportar instancia de db para uso en otros módulos
 export { db };
