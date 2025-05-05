@@ -1,8 +1,6 @@
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { mostrarError, mostrarExito, validarFechas, formatearMoneda, formatearFecha } from '../utils.js';
 import { db } from '../firebase.js';
-import { jsPDF } from 'jspdf';
-import * as XLSX from 'xlsx';
 
 export default class Informe {
     constructor() {
@@ -10,9 +8,8 @@ export default class Informe {
         this.resultado = document.getElementById('informe-resultado');
         this.btnExportarPDF = document.getElementById('exportar-pdf');
         this.btnExportarXLSX = document.getElementById('exportar-xlsx');
-        
-        this.ventasData = null; // Almacenar datos del último informe generado
-        
+        this.ventasData = null;
+
         this.inicializarEventos();
     }
 
@@ -23,19 +20,21 @@ export default class Informe {
         });
 
         this.btnExportarPDF.addEventListener('click', () => {
-            if (this.ventasData) {
-                this.exportarPDF();
-            } else {
-                mostrarError('Primero debe generar un informe');
+            if (!this.ventasData) {
+                mostrarError('Primero genere un informe');
+                return;
             }
+            // Implementar exportación a PDF aquí
+            mostrarExito('Funcionalidad de exportar a PDF no implementada aún');
         });
 
         this.btnExportarXLSX.addEventListener('click', () => {
-            if (this.ventasData) {
-                this.exportarXLSX();
-            } else {
-                mostrarError('Primero debe generar un informe');
+            if (!this.ventasData) {
+                mostrarError('Primero genere un informe');
+                return;
             }
+            // Implementar exportación a XLSX aquí
+            mostrarExito('Funcionalidad de exportar a XLSX no implementada aún');
         });
     }
 
@@ -48,13 +47,6 @@ export default class Informe {
         }
 
         try {
-            // Convertir fechas a timestamp para la consulta
-            const inicio = new Date(fechaInicio);
-            inicio.setHours(0, 0, 0, 0);
-            
-            const fin = new Date(fechaFin);
-            fin.setHours(23, 59, 59, 999);
-
             const ventasRef = collection(db, 'ventas');
             const q = query(
                 ventasRef,
@@ -63,16 +55,17 @@ export default class Informe {
             );
 
             const snapshot = await getDocs(q);
-            const ventas = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
 
-            if (ventas.length === 0) {
+            if (snapshot.empty) {
                 this.resultado.innerHTML = '<p class="text-gray-500 text-center py-4">No se encontraron ventas en el período seleccionado</p>';
                 this.ventasData = null;
                 return;
             }
+
+            const ventas = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
 
             // Agrupar ventas por vendedor
             const ventasPorVendedor = this.agruparVentasPorVendedor(ventas);
@@ -337,3 +330,6 @@ export default class Informe {
         mostrarExito('Excel generado exitosamente');
     }
 }
+</script>
+</body>
+</html>
