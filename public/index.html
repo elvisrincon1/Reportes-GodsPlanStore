@@ -1,162 +1,280 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Reportes - GodsPlan Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistema de Reportes - GodsPlan Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics-compat.js"></script>
 
-    <script>
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCR8b79Iv9r0i-pJ2-YBjo8WkuMPbwkvnc",
-            authDomain: "reportes-godsplanstore.firebaseapp.com",
-            projectId: "reportes-godsplanstore",
-            storageBucket: "reportes-godsplanstore.firebasestorage.app",
-            messagingSenderId: "176028115711",
-            appId: "1:176028115711:web:0506459464cb95e0e0a2ca",
-            measurementId: "G-3JW6NSHHBB"
-        };
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCR8b79Iv9r0i-pJ2-YBjo8WkuMPbwkvnc",
+      authDomain: "reportes-godsplanstore.firebaseapp.com",
+      projectId: "reportes-godsplanstore",
+      storageBucket: "reportes-godsplanstore.firebasestorage.app",
+      messagingSenderId: "176028115711",
+      appId: "1:176028115711:web:0506459464cb95e0e0a2ca",
+      measurementId: "G-3JW6NSHHBB",
+    };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const analytics = firebase.analytics();
-    </script>
-    
-    <style>
-        .section {
-            display: none;
-        }
-        .section.active {
-            display: block;
-        }
-    </style>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const analytics = firebase.analytics();
+  </script>
+
+  <style>
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Barra de navegación -->
-    <nav class="bg-blue-600 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between">
-                <div class="flex space-x-7">
-                    <div class="flex items-center py-4">
-                        <span class="text-white text-xl font-semibold">GodsPlan Store</span>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <button data-section="reportar-venta" class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300">Reportar Venta</button>
-                    <button data-section="inventario" class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300">Inventario</button>
-                    <button data-section="proveedores" class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300">Proveedores</button>
-                    <button data-section="afiliados" class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300">Afiliados</button>
-                    <button data-section="informe" class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300">Generar Informe</button>
-                </div>
-            </div>
+  <!-- Barra de navegación -->
+  <nav class="bg-blue-600 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between">
+        <div class="flex space-x-7">
+          <div class="flex items-center py-4">
+            <span class="text-white text-xl font-semibold">GodsPlan Store</span>
+          </div>
         </div>
-    </nav>
+        <div class="flex items-center space-x-3">
+          <button
+            data-section="reportar-venta"
+            class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300"
+          >
+            Reportar Venta
+          </button>
+          <button
+            data-section="inventario"
+            class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300"
+          >
+            Inventario
+          </button>
+          <button
+            data-section="proveedores"
+            class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300"
+          >
+            Proveedores
+          </button>
+          <button
+            data-section="afiliados"
+            class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300"
+          >
+            Afiliados
+          </button>
+          <button
+            data-section="informe"
+            class="nav-btn py-2 px-4 text-white hover:bg-blue-700 rounded transition duration-300"
+          >
+            Generar Informe
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Contenedor principal -->
-    <div class="container mx-auto px-4 py-8">
-        <!-- Sección Reportar Venta -->
-        <section id="reportar-venta" class="section bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4">Reportar Venta</h2>
-            <form id="venta-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Afiliado</label>
-                    <div class="relative">
-                        <input type="text" id="afiliado" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        <div id="afiliados-list" class="hidden absolute z-10 w-full bg-white mt-1 rounded-md shadow-lg"></div>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Fecha</label>
-                    <input type="date" id="fecha" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Producto</label>
-                    <select id="producto" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        <option value="">Seleccione un producto</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                    Reportar Venta
-                </button>
-            </form>
-        </section>
+  <!-- Contenedor principal -->
+  <div class="container mx-auto px-4 py-8">
+    <!-- Sección Reportar Venta -->
+    <section
+      id="reportar-venta"
+      class="section bg-white rounded-lg shadow-md p-6 mb-6"
+    >
+      <h2 class="text-2xl font-bold mb-4">Reportar Venta</h2>
+      <form id="venta-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Afiliado</label>
+          <div class="relative">
+            <input
+              type="text"
+              id="afiliado"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+            <div
+              id="afiliados-list"
+              class="hidden absolute z-10 w-full bg-white mt-1 rounded-md shadow-lg"
+            ></div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Fecha</label>
+          <input
+            type="date"
+            id="fecha"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Producto</label>
+          <select
+            id="producto"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          >
+            <option value="">Seleccione un producto</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Reportar Venta
+        </button>
+      </form>
+    </section>
 
-        <!-- Sección Inventario -->
-        <section id="inventario" class="section bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4">Inventario</h2>
-            <form id="inventario-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nombre del Producto</label>
-                    <input type="text" id="nombre-producto" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Precio de Compra</label>
-                    <input type="number" id="precio-compra" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Precio de Venta</label>
-                    <input type="number" id="precio-venta" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Proveedor 1</label>
-                    <input type="text" id="proveedor1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Proveedor 2 (Opcional)</label>
-                    <input type="text" id="proveedor2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                    Guardar Producto
-                </button>
-            </form>
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold mb-2">Lista de Productos</h3>
-                <div class="overflow-x-auto">
-                    <table id="productos-table" class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio Compra</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio Venta</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedores</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Los productos se insertarán aquí dinámicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+    <!-- Sección Inventario -->
+    <section
+      id="inventario"
+      class="section bg-white rounded-lg shadow-md p-6 mb-6"
+    >
+      <h2 class="text-2xl font-bold mb-4">Inventario</h2>
+      <form id="inventario-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Nombre del Producto</label
+          >
+          <input
+            type="text"
+            id="nombre-producto"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Precio de Compra</label
+          >
+          <input
+            type="number"
+            id="precio-compra"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Precio de Venta</label
+          >
+          <input
+            type="number"
+            id="precio-venta"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Proveedor 1</label
+          >
+          <input
+            type="text"
+            id="proveedor1"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Proveedor 2 (Opcional)</label
+          >
+          <input
+            type="text"
+            id="proveedor2"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Guardar Producto
+        </button>
+      </form>
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2">Lista de Productos</h3>
+        <div class="overflow-x-auto">
+          <table
+            id="productos-table"
+            class="min-w-full divide-y divide-gray-200"
+          >
+            <thead class="bg-gray-50">
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Nombre
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Precio Compra
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Precio Venta
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Proveedores
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <!-- Los productos se insertarán aquí dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-        <!-- Sección Proveedores -->
-        <section id="proveedores" class="section bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold mb-4">Proveedores</h2>
-            <form id="proveedor-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nombre del Proveedor</label>
-                    <input type="text" id="nombre-proveedor" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                    Guardar Proveedor
-                </button>
-            </form>
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold mb-2">Lista de Proveedores</h3>
-                <div id="proveedores-list" class="grid gap-4">
-                    <!-- Los proveedores se insertarán aquí dinámicamente -->
-                </div>
-            </div>
-        </section>
+    <!-- Sección Proveedores -->
+    <section
+      id="proveedores"
+      class="section bg-white rounded-lg shadow-md p-6 mb-6"
+    >
+      <h2 class="text-2xl font-bold mb-4">Proveedores</h2>
+      <form id="proveedor-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Nombre del Proveedor</label
+          >
+          <input
+            type="text"
+            id="nombre-proveedor"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Guardar Proveedor
+        </button>
+      </form>
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2">Lista de Proveedores</h3>
+        <div id="proveedores-list" class="grid gap-4">
+          <!-- Los proveedores se insertarán aquí dinámicamente -->
+        </div>
+      </div>
+    </section>
 </div>
         <!-- Sección Afiliados -->
         <section id="afiliados" class="section bg-white rounded-lg shadow-md p-6 mb-6">
@@ -215,13 +333,11 @@
     <!-- Modal para edición -->
     <div id="modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div id="modal-content">
-                <!-- El contenido del modal se insertará dinámicamente -->
-            </div>
+            <div id="modal-content"></div>
         </div>
     </div>
 
-    <script>
+  <script>
         // Inicialización de la navegación
         document.addEventListener('DOMContentLoaded', () => {
             const secciones = document.querySelectorAll('.section');
@@ -256,6 +372,8 @@
             // Inicializar los módulos
             initModules();
         });
+
+
 
         // Función para inicializar los módulos
         function initModules() {
@@ -566,20 +684,222 @@
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modal-content');
             
-            <div id="modal-content">
-    <h3 class="text-lg font-semibold mb-4">Editar Proveedor</h3>
-    <form id="editar-proveedor-form" class="space-y-4">
-        <div>
-            <label class="block text-sm font-medium text-gray-700">Nombre del Proveedor</label>
-            <input type="text" id="edit-nombre-proveedor" value="${proveedor.nombre}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" />
-        </div>
-        <div class="flex justify-end space-x-3">
-            <button type="button" onclick="modal.ocultar()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">
-                Cancelar
-            </button>
-            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">
-                Guardar Cambios
-            </button>
-        </div>
-    </form>
-</div>
+            modalContent.innerHTML = `
+                <h3 class="text-lg font-semibold mb-4">Editar Proveedor</h3>
+                <form id="editar-proveedor-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre del Proveedor</label>
+                        <input type="text" id="edit-nombre-proveedor" value="${proveedor.nombre}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="modal.ocultar()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            modal.classList.remove('hidden');
+            
+            document.getElementById('editar-proveedor-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const nombreActualizado = document.getElementById('edit-nombre-proveedor').value.trim();
+                
+                if (!nombreActualizado) {
+                    alert('El nombre del proveedor no puede estar vacío');
+                    return;
+                }
+                
+                try {
+                    await db.collection('proveedores').doc(id).update({
+                        nombre: nombreActualizado,
+                        updatedAt: new Date()
+                    });
+                    alert('Proveedor actualizado exitosamente');
+                    modal.classList.add('hidden');
+                } catch (error) {
+                    console.error('Error al actualizar el proveedor:', error);
+                    alert('Error al actualizar el proveedor');
+                }
+            });
+        };
+
+        function initAfiliados() {
+            const form = document.getElementById('afiliado-form');
+            const lista = document.getElementById('afiliados-list-table');
+
+            // Cargar afiliados
+            db.collection('afiliados').onSnapshot(snapshot => {
+                lista.innerHTML = '';
+                snapshot.docs.forEach(doc => {
+                    const afiliado = doc.data();
+                    const div = document.createElement('div');
+                    div.className = 'bg-white rounded-lg shadow-md p-4 flex justify-between items-center';
+                    div.innerHTML = `
+                        <div>
+                            <h3 class="text-lg font-semibold">${afiliado.nombre}</h3>
+                        </div>
+                        <div>
+                            <button class="text-blue-600 hover:text-blue-900 mr-3" onclick="editarAfiliado('${doc.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-900" onclick="eliminarAfiliado('${doc.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    lista.appendChild(div);
+                });
+            });
+
+            // Manejar el envío del formulario
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const afiliado = {
+                    nombre: document.getElementById('nombre-afiliado').value,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                try {
+                    await db.collection('afiliados').add(afiliado);
+                    alert('Afiliado guardado exitosamente');
+                    form.reset();
+                } catch (error) {
+                    console.error('Error al guardar el afiliado:', error);
+                    alert('Error al guardar el afiliado');
+                }
+            });
+        }
+
+        // Función para editar un afiliado
+        window.editarAfiliado = async (id) => {
+            const doc = await db.collection('afiliados').doc(id).get();
+            const afiliado = doc.data();
+            
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalContent.innerHTML = `
+                <h3 class="text-lg font-semibold mb-4">Editar Afiliado</h3>
+                <form id="editar-afiliado-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre del Afiliado</label>
+                        <input type="text" id="edit-nombre-afiliado" value="${afiliado.nombre}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="modal.ocultar()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            modal.classList.remove('hidden');
+            
+            document.getElementById('editar-afiliado-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const nombreActualizado = document.getElementById('edit-nombre-afiliado').value.trim();
+                
+                if (!nombreActualizado) {
+                    alert('El nombre del afiliado no puede estar vacío');
+                    return;
+                }
+                
+                try {
+                    await db.collection('afiliados').doc(id).update({
+                        nombre: nombreActualizado,
+                        updatedAt: new Date()
+                    });
+                    alert('Afiliado actualizado exitosamente');
+                    modal.classList.add('hidden');
+                } catch (error) {
+                    console.error('Error al actualizar el afiliado:', error);
+                    alert('Error al actualizar el afiliado');
+                }
+            });
+        };
+
+        // Función para eliminar un afiliado
+        window.eliminarAfiliado = async (id) => {
+            if (confirm('¿Está seguro de que desea eliminar este afiliado?')) {
+                try {
+                    await db.collection('afiliados').doc(id).delete();
+                    alert('Afiliado eliminado exitosamente');
+                } catch (error) {
+                    console.error('Error al eliminar el afiliado:', error);
+                    alert('Error al eliminar el afiliado');
+                }
+            }
+        };
+
+        function initInformes() {
+            const form = document.getElementById('informe-form');
+            const resultado = document.getElementById('informe-resultado');
+            const btnExportarPDF = document.getElementById('exportar-pdf');
+            const btnExportarXLSX = document.getElementById('exportar-xlsx');
+            let ventasData = null;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const fechaInicio = document.getElementById('fecha-inicio').value;
+                const fechaFin = document.getElementById('fecha-fin').value;
+
+                if (!fechaInicio || !fechaFin || fechaInicio > fechaFin) {
+                    alert('Por favor, seleccione un rango de fechas válido');
+                    return;
+                }
+
+                try {
+                    const ventasRef = db.collection('ventas');
+                    const snapshot = await ventasRef
+                        .where('fecha', '>=', fechaInicio)
+                        .where('fecha', '<=', fechaFin)
+                        .get();
+
+                    if (snapshot.empty) {
+                        resultado.innerHTML = '<p>No se encontraron ventas en el rango de fechas seleccionado.</p>';
+                        ventasData = null;
+                        return;
+                    }
+
+                    const ventas = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                    // Agrupar por vendedor
+                    const grupos = {};
+                    ventas.forEach(venta => {
+                        if (!grupos[venta.afiliado]) {
+                            grupos[venta.afiliado] = {
+                                ventas: [],
+                                totales: { precioCompra: 0, precioVenta: 0, utilidad: 0 }
+                            };
+                        }
+                        const utilidad = venta.precioVenta - venta.precioCompra;
+                        grupos[venta.afiliado].ventas.push({ ...venta, utilidad });
+                        grupos[venta.afiliado].totales.precioCompra += venta.precioCompra;
+                        grupos[venta.afiliado].totales.precioVenta += venta.precioVenta;
+                        grupos[venta.afiliado].totales.utilidad += utilidad;
+                    });
+
+                    // Ordenar grupos con GODSPLAN primero
+                    const gruposOrdenados = {};
+                    if (grupos['GODSPLAN']) {
+                        gruposOrdenados['GODSPLAN'] = grupos['GODSPLAN'];
+                        delete grupos['GODSPLAN'];
+                    }
+                    Object.keys(grupos)
+                        .sort()
+                        .forEach(vendedor => {
+                            gruposOrdenados[vendedor] = grupos[vendedor];
+                        });
+
+                    ventasData = gruposOrdenados;
